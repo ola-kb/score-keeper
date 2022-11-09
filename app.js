@@ -5,11 +5,21 @@ const p1Display = document.querySelector('#p1Display');
 const p2Display = document.querySelector('#p2Display');
 const playTo = document.querySelector('#playTo');
 
-
 let p1Score = 0;
 let p2Score = 0;
 let winningScore = 5;
 let isGameOver = false;
+
+
+function congrats() {
+    let namePlayerOne = document.querySelector('#namePlayerOne').value;
+    let namePlayerTwo = document.querySelector('#namePlayerTwo').value;
+    if (namePlayerOne != null && p1Score === winningScore) {
+        document.getElementById('winner').innerText = "Congratulations " + namePlayerOne + "!!! You are the winner :)";
+    } else if (namePlayerTwo != null && p2Score === winningScore) {
+        document.getElementById('winner').innerText = "Congratulations " + namePlayerTwo + "!!! You are the winner :)";
+    }
+}
 
 p1Button.addEventListener('click', function () {
     if (!isGameOver) {
@@ -20,11 +30,12 @@ p1Button.addEventListener('click', function () {
             p2Display.classList.add('has-text-danger');
             p1Display.disabled = true;
             p2Display.disabled = true;
+            congrats();
         }
         p1Display.textContent = p1Score;
+
     }
 })
-
 
 p2Button.addEventListener('click', function () {
     if (!isGameOver) {
@@ -35,7 +46,7 @@ p2Button.addEventListener('click', function () {
             p1Display.classList.add('has-text-danger');
             p1Display.disabled = true;
             p2Display.disabled = true;
-
+            congrats();
         }
         p2Display.textContent = p2Score;
     }
@@ -58,6 +69,9 @@ function reset() {
     p2Display.classList.remove('has-text-success', 'has-text-danger');
     p1Display.disabled = false;
     p2Display.disabled = false;
+    namePlayerOne.value = "";
+    namePlayerTwo.value = "";
+    document.getElementById('winner').innerText = "";
 }
 
 
